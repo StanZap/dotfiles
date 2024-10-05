@@ -145,6 +145,12 @@ in
     unstablePkgs.ollama
   ];
 
+  environment.variables = {
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    OPENSSL_DIR = "${pkgs.openssl}";
+    LD_LIBRARY_PATH=/run/opengl-driver/lib;
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
