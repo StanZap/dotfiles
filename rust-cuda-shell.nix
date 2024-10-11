@@ -26,6 +26,8 @@ mkShell {
     
     # cuda # this is unstable.cudatoolkit
     cudaPackages.cudatoolkit # using stable instead so we can use same versio of libcuda from nvidia drivers
+
+    nodejs_22
   ];
 
   shellHook = ''
