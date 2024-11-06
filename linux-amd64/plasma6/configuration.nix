@@ -140,6 +140,9 @@ in
     #unstable.krita
     #unstable.blender
 
+    #
+    unstable.lmstudio
+    unstable.tor-browser
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
