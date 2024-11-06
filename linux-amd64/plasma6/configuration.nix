@@ -56,9 +56,19 @@ in
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
+  services.xserver.videoDrivers = ["nvidia" "qxl"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+  
+
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.wayland.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -127,8 +137,8 @@ in
     gnumake
     lazygit
 
-    unstable.krita
-    unstable.blender
+    #unstable.krita
+    #unstable.blender
 
   ];
 
