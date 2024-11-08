@@ -11,7 +11,7 @@ let
   cuda = unstable.cudaPackages.cudatoolkit;
 in
 mkShell {
-  buildInputs = [
+  buildInputs = with pkgs; [
     openssl.dev
     glib
     atk
@@ -28,6 +28,17 @@ mkShell {
     cudaPackages.cudatoolkit # using stable instead so we can use same versio of libcuda from nvidia drivers
 
     nodejs_22
+
+    rustup
+    pkg-config
+    alsa-lib
+    udev
+    vulkan-loader
+    xorg.libX11
+    xorg.libXrandr
+    xorg.libXcursor
+    xorg.libXi
+    libxkbcommon
   ];
 
   shellHook = ''
@@ -46,6 +57,8 @@ mkShell {
     export PATH="$CUDA_ROOT/bin:$PATH"; # this seems to be done automatically when installing the cudatoolkit
     export LD_LIBRARY_PATH="$CUDA_LIB_DIR:$LD_LIBRARY_PATH";
     export LD_LIBRARY_PATH="/run/opengl-driver/lib:$LD_LIBRARY_PATH";
+
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [ alsa-lib udev vulkan-loader libxkbcommon]}"
   '';
 }
 
