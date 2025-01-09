@@ -17,6 +17,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./cachix.nix
     ];
 
   # Bootloader.
@@ -69,6 +70,12 @@ in
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.wayland.enable = false;
+  services.displayManager.defaultSession = "plasmax11";
+
+  # Enable xrdp
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "plasmashell";
+  services.xrdp.openFirewall = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -123,6 +130,7 @@ in
     git
     unstable.wezterm
     unstable.firefox
+    vlc
 
     # neovim
     unzip
@@ -138,6 +146,11 @@ in
     lazygit
 
     unstable.krita
+    unstable.blender
+    unstable.godot_4
+    openxr-loader
+    android-studio
+    openjdk
 
     #
     unstable.lmstudio
@@ -158,7 +171,20 @@ in
         # }
       ];
     })
+
+    gparted
+    nix-index
+    cachix
+    unstable.lapce
+    unstable.zed-editor
   ];
+
+  environment.variables = {
+    # ANDROID_HOME="/home/dev/Android/Sdk";
+    # NDK_HOME="/home/dev/Android/Sdk/ndk-bundle"; # Adjust path if needed
+    # JAVA_HOME=pkgs.openjdk.home;
+    # export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

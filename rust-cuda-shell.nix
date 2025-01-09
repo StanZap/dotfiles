@@ -23,7 +23,7 @@ mkShell {
     gtk3
     webkitgtk_4_1
     xdotool
-    
+
     # cuda # this is unstable.cudatoolkit
     cudaPackages.cudatoolkit # using stable instead so we can use same versio of libcuda from nvidia drivers
 
@@ -39,6 +39,12 @@ mkShell {
     xorg.libXcursor
     xorg.libXi
     libxkbcommon
+
+    koboldcpp
+
+    android-studio
+    openjdk
+    android-tools
   ];
 
   shellHook = ''
@@ -47,10 +53,15 @@ mkShell {
     export PKG_CONFIG_PATH="${libsoup}/lib/pkgconfig:$PKG_CONFIG_PATH";
 
     # Huggingface new home directory
-    export HF_HOME=$HOME/Doc/hf_home;
+    export HF_HOME=$HOME/Sd/HuggingFace;
+    export HUGGINGFACE_HUB_CACHE=$HOME/Sd/HuggingFace/cache;
+    export HUGGINGFACE_HUB_CACHE=$HOME/Sd/HuggingFace/cache;
+    export TRANSFORMERS_CACHE=$HOME/Sd/HuggingFace/cache;
+    export HF_DATASETS_CACHE=$HOME/Sd/HuggingFace/cache;
+
 
     # Require for candle to use --features=cuda
-    # cuda comes with cudatoolkit but libcuda comes with nvidia drivers 
+    # cuda comes with cudatoolkit but libcuda comes with nvidia drivers
     # that's why system installed drivers libcuda must match cudatoolkit version
     export CUDA_ROOT="${cuda}";
     export CUDA_LIB_DIR="${cuda}/lib";  # Updated path
@@ -59,6 +70,13 @@ mkShell {
     export LD_LIBRARY_PATH="/run/opengl-driver/lib:$LD_LIBRARY_PATH";
 
     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [ alsa-lib udev vulkan-loader libxkbcommon]}"
+
+
+    export ANDROID_HOME="/home/dev/Android/Sdk";
+    export NDK_HOME="/home/dev/Android/Sdk/ndk-bundle";
+    # export JAVA_HOME=${pkgs.openjdk.home};
+    # export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools";
+
   '';
 }
 

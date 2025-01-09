@@ -32,6 +32,9 @@ mkShell {
     export LD_LIBRARY_PATH=${gcc-unwrapped.lib}/lib:$LD_LIBRARY_PATH
 
     source ./venv/bin/activate;
+
+    export HF_HOME="/home/dev/Sd/HuggingFace/cache"
+
   '';
 }
 
